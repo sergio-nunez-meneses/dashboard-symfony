@@ -51,7 +51,7 @@
                     {% if product.availability == 1 %}
                         <a class="btn btn-md bg-warning text-white" href="{{ path('reserve', {id: product.id}) }}">Reserve</a>
                     {% else %}
-                        <a class="btn btn-md bg-danger text-white" href="/">Return</a>
+                        <a class="btn btn-md bg-danger text-white" href="{{ path('index') }}">Return</a>
                     {% endif %}
                 </td>
             </tr>
