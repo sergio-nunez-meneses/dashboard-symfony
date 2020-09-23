@@ -35,12 +35,12 @@ class Products
     /**
      * @ORM\Column(type="datetime")
      */
-    public $purchase_date;
+    private $purchase_date;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    public $warranty_date;
+    private $warranty_date;
 
     /**
      * @ORM\Column(type="integer")
@@ -65,12 +65,12 @@ class Products
     /**
      * @ORM\Column(type="datetime")
      */
-    public $reservation_date;
+    private $reservation_date;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    public $return_date;
+    private $return_date;
 
     /**
      * @ORM\Column(type="boolean")
@@ -85,7 +85,7 @@ class Products
     /**
      * @ORM\Column(type="string", length=255)
      */
-    public $purchase_place;
+    private $purchase_place;
 
     public function getId(): ?int
     {
@@ -160,18 +160,6 @@ class Products
     public function setPrice(int $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getReceipt(): ?string
-    {
-        return $this->receipt;
-    }
-
-    public function setReceipt(string $receipt): self
-    {
-        $this->receipt = $receipt;
 
         return $this;
     }
@@ -259,4 +247,17 @@ class Products
 
         return $this;
     }
+    
+    public function getReceipt()
+    {
+        return $this->receipt;
+    }
+
+    public function setReceipt($receipt)
+    {
+        $this->receipt = $receipt;
+
+        return $this;
+    }
+
 }

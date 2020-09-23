@@ -4,20 +4,20 @@
 
   <h1>Création d'article:</h1>
 
-  {{ form_start(formProducts)}}
+  {{ form_start(formProduct)}}
 
-    {{form_row(formProducts.name)}}
-    {{form_row(formProducts.reference)}}
-    {{form_row(formProducts.category)}}
-    {{form_row(formProducts.purchase_date)}}
-    {{form_row(formProducts.warranty_date)}}
-    {{form_row(formProducts.price)}}
-    {{form_row(formProducts.receipt)}}
-    {{form_row(formProducts.maintenance)}}
-    {{form_row(formProducts.manual)}}
-    {{form_row(formProducts.reservation_date)}}
-    {{form_row(formProducts.return_date)}}
-    {{form_row(formProducts.purchase_place)}}
+    {{form_row(formProduct.name)}}
+    {{form_row(formProduct.reference)}}
+    {{form_row(formProduct.category)}}
+    {{form_row(formProduct.purchase_date)}}
+    {{form_row(formProduct.warranty_date)}}
+    {{form_row(formProduct.price)}}
+    {{form_row(formProduct.receipt)}}
+    {{form_row(formProduct.maintenance)}}
+    {{form_row(formProduct.manual)}}
+    {{form_row(formProduct.reservation_date)}}
+    {{form_row(formProduct.return_date)}}
+    {{form_row(formProduct.purchase_place)}}
     <button type="submit" class="btn btn-success" name="button">
       {% if editMode %}
       Enregistrer les modifications
@@ -26,6 +26,6 @@
       {% endif %}
     </button>
 
-  {{ form_end(formProducts) }}
+  {{ form_end(formProduct) }}
 
 {% endblock %}
