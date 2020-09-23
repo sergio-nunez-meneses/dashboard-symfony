@@ -35,12 +35,12 @@ class Products
     /**
      * @ORM\Column(type="datetime")
      */
-    private $purchase_date;
+    public $purchase_date;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $warranty_date;
+    public $warranty_date;
 
     /**
      * @ORM\Column(type="integer")
@@ -65,12 +65,12 @@ class Products
     /**
      * @ORM\Column(type="datetime")
      */
-    private $reservation_date;
+    public $reservation_date;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $return_date;
+    public $return_date;
 
     /**
      * @ORM\Column(type="boolean")
@@ -85,7 +85,7 @@ class Products
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $purchase_place;
+    public $purchase_place;
 
     public function getId(): ?int
     {

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <h1>Création d'article:</h1>
+
+  {{ form_start(formProducts)}}
+
+    {{form_row(formProducts.name)}}
+    {{form_row(formProducts.reference)}}
+    {{form_row(formProducts.category)}}
+    {{form_row(formProducts.purchase_date)}}
+    {{form_row(formProducts.warranty_date)}}
+    {{form_row(formProducts.price)}}
+    {{form_row(formProducts.receipt)}}
+    {{form_row(formProducts.maintenance)}}
+    {{form_row(formProducts.manual)}}
+    {{form_row(formProducts.reservation_date)}}
+    {{form_row(formProducts.return_date)}}
+    {{form_row(formProducts.purchase_place)}}
+    <button type="submit" class="btn btn-success" name="button">
+      {% if editMode %}
+      Enregistrer les modifications
+      {% else %}
+      Créer
+      {% endif %}
+    </button>
+
+  {{ form_end(formProducts) }}
+
+{% endblock %}
