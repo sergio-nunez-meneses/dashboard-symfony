@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product reservation{% endblock %}
+
+{% block body %}
+<div class="container my-3 text-right">
+    <a class="btn btn-md bg-info text-white" href="{{ path('index') }}">Go back</a>
+</div>
+<div class="container border my-3 p-3">
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="form-group">
+            <button class="btn btn-lg bg-dark text-white" type="submit">Reserve</button>
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

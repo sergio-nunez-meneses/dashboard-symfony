@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <table class="my-3 table table-sm table-bordered table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Reference</th>
+                <th scope="col">Category</th>
+                <th scope="col">Purchase Date</th>
+                <th scope="col">Warranty Date</th>
+                <th scope="col">Price</th>
+                <th scope="col">Receipt</th>
+                <th scope="col">Maintenance</th>
+                <th scope="col">Manual</th>
+                <th scope="col">Reservation Date</th>
+                <th scope="col">Return Date</th>
+                <th scope="col">Availability</th>
+                <th scope="col">Purchase Place</th>
+                <th scope="col">Make Reservation</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <th scope="row">{{ product.id }}</th>
+                <td>{{ product.name }}</td>
+                <td>{{ product.reference }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.purchaseDate|date('Y-m-d') }}</td>
+                <td>{{ product.warrantyDate|date('Y-m-d') }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.receipt }}</td>
+                <td>{{ product.maintenance }}</td>
+                <td>{{ product.manual }}</td>
+                <td>{{ product.reservationDate|date('Y-m-d') }}</td>
+                <td>{{ product.returnDate|date('Y-m-d') }}</td>
+                <td>
+                    {% if product.availability == 1 %}
+                        {{ product.availability }}
+                    {% else %}
+                        {{ 'unavailable' }}
+                    {% endif %}
+                </td>
+                <td>{{ product.purchasePlace }}</td>
+                <td>
+                    {% if product.availability == 1 %}
+                        <a class="btn btn-md bg-warning text-white" href="{{ path('reserve', {id: product.id}) }}">Reserve</a>
+                    {% else %}
+                        <a class="btn btn-md bg-danger text-white" href="/">Return</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+
