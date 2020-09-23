@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}dashboard{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="">
+{% endblock %}
+
+{% block body %}
+
+
+    <h2>{{product.name}}</h2>
+    <div>{{product.Reference}}</div>
+    <div>{{product.Category}}</div>
+    <div>{{product.purchasedate | date('d/m/Y')}}</div>
+    <div>{{product.warrantydate | date('d/m/Y')}}</div>
+    <div>{{product.reservationdate | date('d/m/Y')}}</div>
+    <div>{{product.returndate | date('d/m/Y')}}</div>
+
+
+
+<a href="{{ path('products')}}"><i class="fas fa-info-circle fa-1x">Retour liste des produits</i></a>
+
+{% endblock %}

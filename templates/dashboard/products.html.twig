@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}dashboard{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="">
+{% endblock %}
+
+{% block body %}
+
+<a href="{{ path('product_create')}}"><i class="fas fa-plus-square fa-1x">Create</i></a>
+
+
+  {% for product in products %}
+
+    <h2>{{product.name}}</h2>
+
+
+    <a href="{{ path('product_detail', {'id': product.id} )}}"><i class="fas fa-info-circle fa-1x">link</i></a>
+    <a href="{{ path('product_edit', {'id': product.id} )}}"><i class="fas fa-edit fa-1x">Edit</i></a>
+    <form method="post" action="{{ path('product_delete', {'id': product.id} )}}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce produit')">
+    <input type="hidden" name="method" value="DELETE">
+    <input type="hidden" name="token" value="{{ csrf_token('delete' ~ product.id) }}">
+    <button class="btn btn-danger"><i class="fas fa-trash fa-1x">Delete</i></button>
+
+  {% endfor %}
+
+{% endblock %}

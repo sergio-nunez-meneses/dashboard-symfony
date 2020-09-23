@@ -122,6 +122,15 @@ class Users implements UserInterface
     }
 
     /**
+     * To avoid the error "Catchable Fatal Error: Object of class App\Entity\Users could not be converted to string"
+     */
+    public function __toString()
+    {
+        // display user id at the end of the form
+        return $this->id;
+    }
+
+    /**
      * @return Collection|Products[]
      */
     public function getProducts(): Collection
