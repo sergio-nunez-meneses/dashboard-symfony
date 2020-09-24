@@ -25,7 +25,11 @@
       Créer
       {% endif %}
     </button>
-
+    <a href="{{path('product')}}">
+      <button class="btn btn-danger">
+        Annuler
+      </button>
+    </a>  
   {{ form_end(formProduct) }}
 
 {% endblock %}

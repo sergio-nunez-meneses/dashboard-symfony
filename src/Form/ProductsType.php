@@ -31,7 +31,7 @@ class ProductsType extends AbstractType
             ))
             ->add('price')
             ->add('receipt', FileType::class, [
-                'label' => "Ticket d'achat (PDF file)",
+                'label' => "Ticket d'achat",
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -55,7 +55,7 @@ class ProductsType extends AbstractType
             ])
             ->add('maintenance')
             ->add('manual', FileType::class, [
-                'label' => "Manuel entretien (PDF file)",
+                'label' => "Manuel entretien",
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,

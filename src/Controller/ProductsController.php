@@ -28,8 +28,8 @@ class ProductsController extends AbstractController
     }
 
     /**
-     * @Route("/new" , name="products_create")
-     *@Route("/{id}/edit" , name="products_edit")
+     * @Route("/new" , name="product_create")
+     *@Route("/{id}/edit" , name="product_edit")
      */
     
     public function form(Products $product = null, Request $request,SluggerInterface $slugger, EntityManagerInterface $manager)
@@ -110,5 +110,24 @@ class ProductsController extends AbstractController
         'editMode' => $product->getId() !== null
       ]);
     }
+    /**
+ * @Route("/delete/{id}" , name="delete_product")
+ */
+public function delete($id)
+{
+    $entityManager = $this->getDoctrine()->getManager();
+    $product = $entityManager->getRepository(Products::class)->find($id);
 
+    if (!$product) {
+        throw $this->createNotFoundException(
+            'No product found for id '.$id
+        );
+    }
+    
+    $entityManager->remove($product);
+    $entityManager->flush();
+
+    return $this->redirectToRoute('product', [
+    ]);
+}
 }

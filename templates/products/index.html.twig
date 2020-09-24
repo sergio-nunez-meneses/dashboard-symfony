@@ -4,24 +4,60 @@
 
 {% block body %}
 
-{% for product in product %}
-    <p>{{product.name}}</p>
-    <p>{{product.reference}}</p>
-    <p>{{product.category}}</p>
-    <p>{{product.purchasedate | date('d/m/Y')}}</p>
-    <p>{{product.warrantydate | date('d/m/Y')}}</p>
-    <p>{{product.price}}</p>
-    <p>{{product.receipt}}</p>
-    <p>{{product.maintenance}}</p>
-    <p>{{product.manual}}</p>
-    <p>{{product.reservationdate | date('d/m/Y')}}</p>
-    <p>{{product.returndate | date('d/m/Y')}}</p>
-    {% if product.availability == 1 %}
-    <p>{{product.purchaseplace}}</p>
-    <p>__________________________________</p>
+<form action="{{path('product_create')}}">
+  <button type="submit" class="btn btn-primary" name="button">CREER</button>
+</form>
 
-        
-    {% endif %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Reference </th>
+      <th scope="col">Catégorie</th>
+      <th scope="col">Date Achat</th>
+      <th scope="col">Date Garrantie</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Ticket Achat</th>
+      <th scope="col">Fiche Maintenance</th>
+      <th scope="col">Manuel utilisation</th>
+      <th scope="col">Date Reservation</th>
+      <th scope="col">Date Retour</th>
+      <th scope="col">Vendu Par</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for product in product %}
+  <tr>
+    <th>{{product.name}}</th>
+      <td>{{product.reference}}</td>
+      <td>{{product.category}}</td>
+      <td>{{product.purchasedate | date('d/m/Y')}}</td>
+      <td>{{product.warrantydate | date('d/m/Y')}}</td>
+      <td>{{product.price}}</td>
+      <td>
+        <a href="{{ asset('uploads/receipt/' ~ product.receipt) }}">Voir Ticket</a>
+      </td>
+      <td>{{product.maintenance}}</td>
+      <td>
+        <a href="{{ asset('uploads/manual/' ~ product.manual) }}">Voir Manuel</a>
+      </td>
+      <td>{{product.reservationdate | date('d/m/Y')}}</td>
+      <td>{{product.returndate | date('d/m/Y')}}</td>
+      <td>{{product.purchaseplace}}</td>
+      <td>
+        <form action="{{path('product_edit' , {'id': product.id})}}">
+          <button type="submit" name="button">UPDATE</button>
+        </form>
+      </td>
+      <td>
+        <form action="{{path('delete_product' , {'id': product.id})}}">
+          <button type="submit" name="button">DELETE</button>
+        </form>
+      </td>
+    </tr>
+    
   {% endfor %}
+</tbody>
+</table>
 
 {% endblock %}
