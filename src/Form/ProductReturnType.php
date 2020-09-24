@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 // use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
-class ProductReservationType extends AbstractType
+class ProductReturnType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,19 +24,19 @@ class ProductReservationType extends AbstractType
             // ->add('receipt')
             // ->add('maintenance')
             // ->add('manual')
-            ->add('reservation_date', DateType::class, [
-                'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
-                'data' => new \DateTime('now')
-                ])
+            // ->add('reservation_date', DateType::class, [
+            //     "widget" => 'single_text',
+            //     "format" => 'yyyy-MM-dd',
+            //     "data" => new \DateTime('now')
+            //     ])
             ->add('return_date', DateType::class, [
-                'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
-                'data' => new \DateTime('now + 2 weeks')
+                "widget" => 'single_text',
+                "format" => 'yyyy-MM-dd',
+                "data" => new \DateTime('now')
                 ])
             ->add('availability', ChoiceType::class, [
                 'choices' => [
-                    'Unavailable' => false
+                    'Available' => true
                 ]
             ])
             // ->add('purchase_place')

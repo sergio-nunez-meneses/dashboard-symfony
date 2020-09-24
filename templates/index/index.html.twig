@@ -3,55 +3,61 @@
 {% block title %}Products{% endblock %}
 
 {% block body %}
-<div class="container-fluid">
-    <table class="my-3 table table-sm table-bordered table-striped table-hover">
-        <thead class="thead-dark">
+<div class="container-fluid text-center">
+    <button id="showCells" class="btn btn-md bg-info mx-auto mt-3 text-white" type="button">Show More</button>
+    <table class="my-3 table table-sm table-bordered table-striped table-hover text-justify">
+        <thead class="thead-dark text-uppercase">
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Reference</th>
-                <th scope="col">Category</th>
-                <th scope="col">Purchase Date</th>
-                <th scope="col">Warranty Date</th>
-                <th scope="col">Price</th>
-                <th scope="col">Receipt</th>
-                <th scope="col">Maintenance</th>
-                <th scope="col">Manual</th>
-                <th scope="col">Reservation Date</th>
-                <th scope="col">Return Date</th>
-                <th scope="col">Availability</th>
-                <th scope="col">Purchase Place</th>
-                <th scope="col">Make Reservation</th>
+                <th class="hiddenCell d-none" scope="col">Id</th>
+                <th class="" scope="col">Name</th>
+                <th class="hiddenCell d-none" scope="col">Reference</th>
+                <th class="hiddenCell d-none" scope="col">Category</th>
+                <th class="" scope="col">Purchase Date</th>
+                <th class="" scope="col">Warranty Date</th>
+                <th class="" scope="col">Price</th>
+                <th class="" scope="col">Receipt</th>
+                <th class="hiddenCell d-none" scope="col">Maintenance</th>
+                <th class="" scope="col">Manual</th>
+                <th class="" scope="col">Reservation Date</th>
+                <th class="" scope="col">Return Date</th>
+                <th class="" scope="col">Availability</th>
+                <th class="" scope="col">Purchase Place</th>
+                <th class="" scope="col">Make Reservation</th>
             </tr>
         </thead>
         <tbody>
         {% for product in products %}
             <tr>
-                <th scope="row">{{ product.id }}</th>
+                <th class="hiddenCell d-none" scope="row">{{ product.id }}</th>
                 <td>{{ product.name }}</td>
-                <td>{{ product.reference }}</td>
-                <td>{{ product.category }}</td>
+                <td class="hiddenCell d-none">{{ product.reference }}</td>
+                <td class="hiddenCell d-none">{{ product.category }}</td>
                 <td>{{ product.purchaseDate|date('Y-m-d') }}</td>
                 <td>{{ product.warrantyDate|date('Y-m-d') }}</td>
                 <td>{{ product.price }}</td>
-                <td>{{ product.receipt }}</td>
-                <td>{{ product.maintenance }}</td>
-                <td>{{ product.manual }}</td>
+                <td>
+                    <a class="btn btn-md bg-success text-decoration-none text-white" href="{{ product.receipt }}" download>Receipt</a>
+                </td>
+                <td class="hiddenCell d-none">{{ product.maintenance }}</td>
+                <td>
+                    <a class="btn btn-md bg-success text-decoration-none text-white" href="{{ product.manual }}" download>Manual</a>
+                </td>
                 <td>{{ product.reservationDate|date('Y-m-d') }}</td>
                 <td>{{ product.returnDate|date('Y-m-d') }}</td>
                 <td>
                     {% if product.availability == 1 %}
-                        {{ product.availability }}
+                        {{ 'available' }}
                     {% else %}
                         {{ 'unavailable' }}
                     {% endif %}
                 </td>
                 <td>{{ product.purchasePlace }}</td>
                 <td>
+                    <a class="btn btn-md bg-info mx-auto my-1 w-100 text-white" href="{{ path('index') }}">Details</a>
                     {% if product.availability == 1 %}
-                        <a class="btn btn-md bg-warning text-white" href="{{ path('reserve', {id: product.id}) }}">Reserve</a>
+                        <a class="btn btn-md bg-warning mx-auto my-1 w-100 text-white" href="{{ path('reserve_product', {id: product.id}) }}">Reserve</a>
                     {% else %}
-                        <a class="btn btn-md bg-danger text-white" href="{{ path('index') }}">Return</a>
+                        <a class="btn btn-md bg-danger mx-auto my-1 w-100 text-white" href="{{ path('return_product', {id: product.id}) }}">Return</a>
                     {% endif %}
                 </td>
             </tr>

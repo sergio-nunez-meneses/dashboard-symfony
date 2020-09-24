@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product reservation{% endblock %}
+{% block title %}Return Product{% endblock %}
 
 {% block body %}
 <div class="container my-3 text-right">
@@ -9,9 +9,8 @@
 <div class="container border my-3 p-3">
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        {# {{ form_widget(form.name) }} #}
         <div class="form-group">
-            <button class="btn btn-lg bg-dark text-white" type="submit">Reserve</button>
+            <button class="btn btn-lg bg-dark text-white" type="submit">Return</button>
         </div>
     {{ form_end(form) }}
 </div>

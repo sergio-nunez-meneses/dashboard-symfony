@@ -128,6 +128,7 @@ class Users implements UserInterface
     {
         // display user id at the end of the form
         return $this->username;
+        // return $this->id;
     }
 
     /**
