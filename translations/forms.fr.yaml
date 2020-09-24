@@ -1,17 +1,17 @@
-name
-  reference : Référence 
-  category : Catégorie 
-  price : Prix
-  availability : Disponibilité
- 
-  
-  purchase_date : Date d'achat
-  warranty_date : Date de garantie
-  reservation_date : Date de réservation
-  return_date : Date de retour
-  
+name : Nom
+reference : Référence 
+category : Catégorie 
+price : Prix
+availability : Disponibilité
 
-  manual : Manuel d'utilisation
-  receipt : Facture
-  purchase_place : Vendeur
-  maintenance : Conseils d'entretien 
+
+purchase_date : Date d\'achat
+warranty_date : Date de garantie
+reservation_date : Date de réservation
+return_date : Date de retour
+
+
+manual : Manuel d\'utilisation
+receipt : Facture
+purchase_place : Vendeur
+maintenance : Conseils d\'entretien 

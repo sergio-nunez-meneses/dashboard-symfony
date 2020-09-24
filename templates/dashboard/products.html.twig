@@ -7,21 +7,61 @@
 
 {% block body %}
 
-<a href="{{ path('product_create')}}"><i class="fas fa-plus-square fa-1x">Create</i></a>
-
-
+<div class="container">
+<div class="row p-5 justify-content-center">
+<h1>Liste des produits</h1>
+</div>
+<div class="row p-5">
+ <div class="col-12"><a href="{{ path('product_create')}}"><i class="fas fa-plus-square fa-1x">Create</i></a> </div>
+</div>
+<table class="table" data-toggle="table" data-show-columns="true" data-search="true" data-pagination="true">
+  <thead>
+    <tr class="text-center">
+      <th data-sortable="true" data-field="Reserved" class="col-1">Réserver</th>
+      <th data-sortable="true" data-field="details" class="col-1">Détails</th>
+      {# <th data-sortable="true" data-field="id" class="col-1">ID</th> #}
+      <th data-sortable="true" data-field="name" class="col-2">nom</th>
+      <th data-sortable="true" data-field="category" class="col-2">Catégorie</th>
+      <th data-sortable="true" data-field="ref" class="col-2">Référence</th>
+      {# <th data-sortable="true" data-field="buydate" class="col-2">Date achat</th> #}
+      {# <th data-sortable="true" data-field="waranty" class="col-2">Date garantie</th> #}
+      <th data-sortable="true" data-field="resrevation" class="col-2">Date réservation</th>
+      <th data-sortable="true" data-field="retour" class="col-2">Date retour</th>
+      <th data-sortable="true" data-field="price" class="col-2">Prix</th>
+      {# <th data-sortable="true" data-field="vendor" class="col-2">Vendeur</th> #}
+      <th></th>
+      <th></th>
+  </thead>
+  <tbody>  
   {% for product in products %}
-
-    <h2>{{product.name}}</h2>
-
-
-    <a href="{{ path('product_detail', {'id': product.id} )}}"><i class="fas fa-info-circle fa-1x">link</i></a>
-    <a href="{{ path('product_edit', {'id': product.id} )}}"><i class="fas fa-edit fa-1x">Edit</i></a>
-    <form method="post" action="{{ path('product_delete', {'id': product.id} )}}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce produit')">
-    <input type="hidden" name="method" value="DELETE">
-    <input type="hidden" name="token" value="{{ csrf_token('delete' ~ product.id) }}">
-    <button class="btn btn-danger"><i class="fas fa-trash fa-1x">Delete</i></button>
-
+    <tr>
+      {% if product.availability %}
+      <td class='text-center'><i class="fas fa-check-circle fa-2x" style="color:green"></i> Ajouter au panier</td>
+      {% else %}
+      <td class='text-center'><i class="fas fa-times-circle fa-2x" style="color:red"></i></td>
+      {% endif %}
+      <td class='text-center'><a href="{{ path('product_detail', {'id': product.id} )}}" ><i class="fas fa-info-circle fa-1x"></i></a></td>
+      {# <td>{{product.id}}</td> #}
+      <td>{{product.name}}</td>
+      <td>{{product.category}}</td>
+      <td>{{product.reference}}</td>
+      {# <td>{{product.purchasedate | date('d/m/Y') }}</td> #}
+      {# <td>{{product.warrantydate | date('d/m/Y') }}</td> #}
+      <td>{{product.reservationdate | date('d/m/Y') }}</td>
+      <td>{{product.returndate | date('d/m/Y') }}</td>
+      <td>{{product.price}}</td>
+      {# <td>{{product.purchaseplace}}</td> #}
+      <td><a href="{{ path('product_edit', {'id': product.id} )}}"><i class="fas fa-edit fa-1x"></i></a></td>
+      <td>
+        <form action="{{ path('product_delete', {'id': product.id} ) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce produit')">
+          <input type="hidden" name="methods" value="DELETE">
+          <input type="hidden" name="token" value="{{ csrf_token('delete' ~ product.id) }}">
+          <a><i class="fas fa-trash fa-1x"></i></a>
+        </form>  
+      </td>
+    </tr>
   {% endfor %}
-
+  </tbody>
+</div>
+</table>
 {% endblock %}

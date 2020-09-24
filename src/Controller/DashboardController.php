@@ -5,10 +5,12 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Products;
 use App\Form\ProductFormType;
@@ -102,17 +104,22 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route("/products/{id}/delete", name= "product_delete")
+     * @Route("/products/{id}/delete", name="product_delete", methods="DELETE|GET")
     */
     
-    public function DeleteProduct(Products $product, Request $request, EntityManagerInterface $manager){
+    public function DeleteProduct(Products $product, Request $request, EntityManagerInterface $manager): Response
+    {
       
-      if ($this->isCsrfTokenValid('delete' . $product->getId(id), $request->get('_token'))) {
-      $manager->remove($product);
-      $manager->flush();
-      return $this->redirectToRoute('products'); 
-      }
+      if (true || $this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token')))
+      {
         
+        $manager->remove($product);
+        $manager->flush();
+        // return new Response('Product deleted');
+      }
+
+      return $this->redirectToRoute('products'); 
+
     }
 
     /**
@@ -121,9 +128,12 @@ class DashboardController extends AbstractController
 
     public function DetailProduct(Products $product)
     {
+      // $now = new DateTime();
+      // $interval = $now->diff($product->getWarrantyDate());
 
       return $this->render('dashboard/product.html.twig', [
           'product' => $product
+          // 'interval' => $interval
       ]);
     }
 
