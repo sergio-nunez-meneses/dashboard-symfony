@@ -176,18 +176,6 @@ class Products
         return $this;
     }
 
-    public function getManual(): ?string
-    {
-        return $this->manual;
-    }
-
-    public function setManual(string $manual): self
-    {
-        $this->manual = $manual;
-
-        return $this;
-    }
-
     public function getReservationDate(): ?\DateTimeInterface
     {
         return $this->reservation_date;
@@ -256,6 +244,17 @@ class Products
     public function setReceipt($receipt)
     {
         $this->receipt = $receipt;
+
+        return $this;
+    }
+    public function getManual()
+    {
+        return $this->manual;
+    }
+
+    public function setManual($manual)
+    {
+        $this->manual = $manual;
 
         return $this;
     }

@@ -31,7 +31,7 @@ class ProductsType extends AbstractType
             ))
             ->add('price')
             ->add('receipt', FileType::class, [
-                'label' => 'Brochure (PDF file)',
+                'label' => "Ticket d'achat (PDF file)",
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -54,7 +54,29 @@ class ProductsType extends AbstractType
                 ],
             ])
             ->add('maintenance')
-            ->add('manual')
+            ->add('manual', FileType::class, [
+                'label' => "Manuel entretien (PDF file)",
+
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
+
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
+                ],
+            ])
             ->add('reservation_date', DateType::class, array(
                 "widget" => 'single_text',
                 "format" => 'yyyy-MM-dd',

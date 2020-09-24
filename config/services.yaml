@@ -31,3 +31,4 @@ services:
     # please note that last definitions always *replace* previous ones
 parameters:
     receipt_directory: '%kernel.project_dir%/public/uploads/receipt'
+    manual_directory: '%kernel.project_dir%/public/uploads/manual'

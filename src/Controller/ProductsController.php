@@ -69,6 +69,31 @@ class ProductsController extends AbstractController
                 $product->setReceipt($newFilename);
             }
 
+            $manualFile = $form->get('manual')->getData();
+
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($manualFile) {
+                $originalFilename = pathinfo($manualFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$manualFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $manualFile->move(
+                        $this->getParameter('manual_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'receipt' property to store the PDF file name
+                // instead of its contents
+                $product->setManual($newFilename);
+            }    
+
         if (!$product->getId()) {
             $product->setAvailability(true);
         }
