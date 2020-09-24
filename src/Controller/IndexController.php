@@ -49,7 +49,7 @@ class IndexController extends AbstractController
             $product = $this->getDoctrine()->getRepository(Products::class)->find($id);
             $user = $this->getUser();
             $product->setIdUser($user);
-            $product->setName($data['name']);
+            // $product->setName($data['name']);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
