@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 // use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
@@ -15,7 +16,9 @@ class ProductReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name', TextType::class, [
+                'attr' => ['readonly' => true]
+            ])
             // ->add('reference')
             // ->add('category')
             // ->add('purchase_date')
@@ -27,17 +30,20 @@ class ProductReservationType extends AbstractType
             ->add('reservation_date', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
-                'data' => new \DateTime('now')
+                'data' => new \DateTime('now'),
+                'attr' => ['readonly' => true]
                 ])
             ->add('return_date', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
-                'data' => new \DateTime('now + 2 weeks')
+                'data' => new \DateTime('now + 2 weeks'),
+                'attr' => ['readonly' => true]
                 ])
             ->add('availability', ChoiceType::class, [
                 'choices' => [
-                    'Unavailable' => false
-                ]
+                    'Unavailable' => false,
+                ],
+                'attr' => ['readonly' => true]
             ])
             // ->add('purchase_place')
             // ->add('id_user', HiddenType::class)

@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
 use App\Entity\Products;
 use App\Form\ProductReturnType;
 use App\Form\ProductReservationType;
 use App\Repository\ProductsRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,10 +16,10 @@ class IndexController extends AbstractController
 {
     private $repository;
 
-    public function __construct(ProductsRepository $repository, ManagerRegistry $registry)
+    public function __construct(ProductsRepository $repository)
     {
         $this->repository = $repository;
-        $this->registry = $registry;
+
     }
 
     /**
@@ -27,11 +27,13 @@ class IndexController extends AbstractController
      */
     public function index(): Response
     {
+        $username = $this->getUser()->getUsername();
         $products = $this->repository->findAll();
-
+        
         return $this->render('index/index.html.twig', [
             'current_page' => 'index',
-            'products' => $products,
+            'current_username' => $username,
+            'products' => $products
         ]);
     }
     
@@ -45,11 +47,14 @@ class IndexController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $data = $form->getData();
-            $product = $this->getDoctrine()->getRepository(Products::class)->find($id);
+            // $product = new Products(); // for creating a new product
+            $data = $form->getData(); // get all data from form inputs
+            $product = $this->repository->find($id);
             $user = $this->getUser();
             $product->setIdUser($user);
             // $product->setName($data['name']);
+            // $return_date = new \DateTime($data['reservationDate'] ' + 4 weeks');
+            // $product->setReturnDate($return_date);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
