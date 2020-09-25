@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="">{{product.name}}</h1>
+        <h4>{{product.reference}}</h4>
+        <h2>Catégorie :{{product.category}}</h2>
+        <br>
+        <p>Date d'achat : {{product.purchasedate | date('d/m/Y')}}</p>
+        <p>Prix : {{product.price}}€</p>
+        <a href="{{ asset('uploads/manual/' ~ product.manual) }}">Voir Manuel</a>
+
+    </div>
+
+{% endblock body %}

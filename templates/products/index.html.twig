@@ -4,9 +4,9 @@
 
 {% block body %}
 
-<form action="{{path('product_create')}}">
-  <button type="submit" class="btn btn-primary" name="button">CREER</button>
-</form>
+<a href="{{path('product_create')}}">
+  <button type="submit" class="btn btn-primary mx-2 my-2" name="button">CREER</button>
+</a>
 
 <table class="table">
   <thead>
@@ -20,15 +20,15 @@
       <th scope="col">Ticket Achat</th>
       <th scope="col">Fiche Maintenance</th>
       <th scope="col">Manuel utilisation</th>
-      <th scope="col">Date Reservation</th>
-      <th scope="col">Date Retour</th>
       <th scope="col">Vendu Par</th>
     </tr>
   </thead>
   <tbody>
 {% for product in product %}
   <tr>
-    <th>{{product.name}}</th>
+    <th>
+      <a href="{{path('product_detail' , {'id': product.id})}}">{{product.name}}</a>
+    </th>
       <td>{{product.reference}}</td>
       <td>{{product.category}}</td>
       <td>{{product.purchasedate | date('d/m/Y')}}</td>
@@ -41,17 +41,15 @@
       <td>
         <a href="{{ asset('uploads/manual/' ~ product.manual) }}">Voir Manuel</a>
       </td>
-      <td>{{product.reservationdate | date('d/m/Y')}}</td>
-      <td>{{product.returndate | date('d/m/Y')}}</td>
       <td>{{product.purchaseplace}}</td>
       <td>
         <form action="{{path('product_edit' , {'id': product.id})}}">
-          <button type="submit" name="button">UPDATE</button>
+          <button type="submit" class="btn btn-success" name="button">UPDATE</button>
         </form>
       </td>
       <td>
         <form action="{{path('delete_product' , {'id': product.id})}}">
-          <button type="submit" name="button">DELETE</button>
+          <button type="submit" class="btn btn-danger" name="button">DELETE</button>
         </form>
       </td>
     </tr>

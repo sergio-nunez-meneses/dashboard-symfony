@@ -27,6 +27,16 @@ class ProductsController extends AbstractController
         ]);
     }
 
+        /**
+     * @Route("/detail/{id}", name="product_detail")
+     */
+    public function detail(Products $product, Request $request, EntityManagerInterface $manager)
+    {
+        return $this->render('products/detail.html.twig', [
+            'product' => $product
+          ]);
+    }
+
     /**
      * @Route("/new" , name="product_create")
      *@Route("/{id}/edit" , name="product_edit")
