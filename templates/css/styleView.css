@@ -1,7 +1,7 @@
 
 @font-face {
     font-family: 'Simply Rounded';
-    src: url('../fonts/Simply Rounded.ttf') format('truetype');
+    src: url('fonts/Simply Rounded.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
@@ -27,7 +27,7 @@ h1.d-flex.mt-5 {
 }
 
 a#login{
-  font-size: 2rem;
+  font-size: 2 rem;
   text-decoration: blink;
   color:red;
 }

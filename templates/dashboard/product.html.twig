@@ -11,7 +11,7 @@
   <div class="row p-5 justify-content-center">
     <h1>{{product.name}}</h1>
   </div>
-  
+
   <div class="container-fluid content m-0 p-0">
     <h2 class="colomn justify-content-between">Rappel des caractéristiques du produit : </h2>
       <div class="row shadow-lg p-4 mb-4 bg-white">  
@@ -34,7 +34,7 @@
                   <div class="p-2">Achat le : {{product.purchasedate | date('d/m/Y')}}</div>
                   <div class="p-2">Produit garantis jusqu'au : {{product.warrantydate | date('d/m/Y')}}</div>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center align-self-center">
                   {% set difference = date(product.warrantydate).diff(date()) %}
                   {% set Days = difference.days %}
                   Il reste {{ Days }} jours de garantie
@@ -45,20 +45,20 @@
                   {% if product.availability == false %}
                   <div class="p-2" >Réservé du : {{product.reservationdate | date('d/m/Y')}}</div>
                   <div class="p-2">jusqu'au : {{product.returndate | date('d/m/Y')}}</div>
-                  <div class="p-2">par : {{product.iduser}}
+                  <div class="p-2">par : {{product.iduser}}</div>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center align-self-center">
                   {% set difference = date(product.warrantydate).diff(date()) %}
                   {% set Days = difference.days %}
                   Le produit sera disponible dans {{ Days }} jours.
-                </div> 
-                {% endif %}
-              </div>       
+                  {% endif %}
+                  </div>
+                </div>       
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       <div class="row shadow-lg p-4 mb-4 bg-white">
         <div class="col-lg-8 col-sm-12 p-5 shadow-lg">
           <h3>conseils d'entretien</h3>

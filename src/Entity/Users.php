@@ -8,10 +8,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\EqualToValidator;
+use Symfony\Component\Validator\Constraints\EqualTo;
+
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ * @UniqueEntity(fields={ "email"},message="cette email est déja utilisé")
  */
 class Users implements UserInterface
 {
@@ -21,6 +26,7 @@ class Users implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -33,16 +39,31 @@ class Users implements UserInterface
     private $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var string
      * @ORM\Column(type="string")
+     * @Assert\Length( min="6",minMessage="votre password doit faire au minimum 6 caractères")
      */
     private $password;
+
+    /**
+     * @var string 
+     * 
+    */
+    public $confirm_password;
+        // @Assert\EqualTo(propertyPath="password", message="ca marche pas c'est de la merde")
 
     /**
      * @ORM\OneToMany(targetEntity=Products::class, mappedBy="id_user")
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * 
+     */
+    private $email;
+
+    
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -121,6 +142,7 @@ class Users implements UserInterface
         // $this->plainPassword = null;
     }
 
+    
     /**
      * To avoid the error "Catchable Fatal Error: Object of class App\Entity\Users could not be converted to string"
      */
@@ -160,4 +182,18 @@ class Users implements UserInterface
 
         return $this;
     }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    
 }
