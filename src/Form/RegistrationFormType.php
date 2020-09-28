@@ -33,8 +33,7 @@ class RegistrationFormType extends AbstractType
                     'user' => 'ROLE_USER'
                 ],
                 'multiple' => true,
-                'required' => true,
-                'attr' => ['readonly' => true]
+                'attr' => ['readonly' => true] // when using just one option
                 ]
             )
             ->add('plainPassword', PasswordType::class, [
