@@ -27,14 +27,23 @@ class IndexController extends AbstractController
      */
     public function index(): Response
     {
-        $username = $this->getUser()->getUsername();
+        $user = $this->getUser();
+        $name = $user->getUsername();
+        $role = $this->getDoctrine()->getRepository(Users::class)->findOneBy(['username' => $name])->getRoles();
         $products = $this->repository->findAll();
-        
-        return $this->render('index/index.html.twig', [
-            'current_page' => 'index',
-            'current_username' => $username,
-            'products' => $products
-        ]);
+
+        if ($role[0] === 'ROLE_ADMIN') {
+            return $this->render('admin/index.html.twig', [
+                'current_page' => 'admin',
+                'current_username' => $name,
+            ]);
+        } elseif ($role[0] === 'ROLE_USER') {
+            return $this->render('index/index.html.twig', [
+                'current_page' => 'index',
+                'current_username' => $name,
+                'products' => $products
+            ]);
+        }
     }
     
     /**

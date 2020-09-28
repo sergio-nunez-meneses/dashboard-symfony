@@ -3,6 +3,14 @@
 {% block title %}Products{% endblock %}
 
 {% block body %}
+{# {% if is_granted('ROLE_ADMIN') %}
+    Administrator
+{% elseif is_granted('ROLE_USER') %}
+    User
+{% else %}
+    Anonymous
+{% endif %} #}
+
 <div class="container-fluid text-center">
     <button id="showCells" class="btn btn-md bg-info mx-auto mt-3 text-white" type="button">Show More</button>
     <table class="my-3 table table-sm table-bordered table-striped table-hover text-justify">
