@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Products;
 use Symfony\Component\Form\AbstractType;
+use App\Entity\Products;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -31,14 +31,14 @@ class ProductReservationType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
                 'data' => new \DateTime('now'),
-                'attr' => ['readonly' => true]
+                // 'attr' => ['readonly' => true]
                 ])
-            ->add('return_date', DateType::class, [
-                'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
-                'data' => new \DateTime('now + 2 weeks'),
-                'attr' => ['readonly' => true]
-                ])
+            // ->add('return_date', DateType::class, [
+            //     'widget' => 'single_text',
+            //     'format' => 'yyyy-MM-dd',
+            //     'data' => new \DateTime('now + 4 weeks'),
+            //     'attr' => ['readonly' => true]
+            //     ])
             ->add('availability', ChoiceType::class, [
                 'choices' => [
                     'Unavailable' => false,
