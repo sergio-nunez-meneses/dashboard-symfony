@@ -63,10 +63,15 @@
                 <td>
                     <a class="btn btn-md bg-info mx-auto my-1 w-100 text-white" href="{{ path('index') }}">Details</a>
                     {% if current_username != product.idUser %}
-                        <button class="disabled btn btn-md bg-danger mx-auto my-1 w-100 text-white">Product Unavailable</button>
+                        {% if product.availability == 0 %}
+                            <button class="disabled btn btn-md bg-danger mx-auto my-1 w-100 text-white">Product Unavailable</button>
+                            <a class="btn btn-md bg-warning mx-auto my-1 w-100 text-white" href="{{ path('reserve_product', {id: product.id}) }}">Reserve</a>
+                        {% else %}
+                            <a class="btn btn-md bg-warning mx-auto my-1 w-100 text-white" href="{{ path('reserve_product', {id: product.id}) }}">Rent</a>
+                        {% endif %}
                     {% elseif current_username == product.idUser %}
                         {% if product.availability == 1 %}
-                            <a class="btn btn-md bg-warning mx-auto my-1 w-100 text-white" href="{{ path('reserve_product', {id: product.id}) }}">Reserve</a>
+                            <a class="btn btn-md bg-warning mx-auto my-1 w-100 text-white" href="{{ path('reserve_product', {id: product.id}) }}">Rent</a>
                         {% else %}
                             <a class="btn btn-md bg-danger mx-auto my-1 w-100 text-white" href="{{ path('return_product', {id: product.id}) }}">Return</a>
                         {% endif %}

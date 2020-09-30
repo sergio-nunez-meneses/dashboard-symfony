@@ -20,7 +20,7 @@ class IndexController extends AbstractController
 
     public function __construct(UsersRepository $users_repository, ProductsRepository $products_repository)
     {
-        // short for $this->getDoctrine()->getRepository(Entity:class);
+        // short for $this->getDoctrine()->getRepository(Entity::class);
         $this->users_repository = $users_repository;
         $this->products_repository = $products_repository;
 
@@ -67,18 +67,18 @@ class IndexController extends AbstractController
             $user = $this->getUser();
             $product->setIdUser($user);
 
-            // $real_reservation_date = $form->getData()->getReservationDate();
-
             $reservation_date = $form->getData()->getReservationDate();
             $product->setReservationDate($reservation_date);
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
+            $em->flush();
 
-            $return_date = $reservation_date->add(new \DateInterval('P30D'));
+            $return_date = $reservation_date;
+            $return_date = $return_date->add(new \DateInterval('P30D'));
             $product->setReturnDate($return_date);
             $em->persist($product);
-
             $em->flush();
+
             return $this->redirectToRoute('index');
         }
 
@@ -98,11 +98,9 @@ class IndexController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            // $product = $this->getDoctrine()->getRepository(Products::class)->find($id);
             $product = $this->products_repository->find($id);
             $user = $this->getUser();
             $product->setIdUser($user);
-            // $reserve = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);

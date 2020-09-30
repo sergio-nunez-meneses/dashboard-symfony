@@ -13,25 +13,17 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProductReservationType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name', TextType::class, [
                 'attr' => ['readonly' => true]
             ])
-            // ->add('reference')
-            // ->add('category')
-            // ->add('purchase_date')
-            // ->add('warranty_date')
-            // ->add('price')
-            // ->add('receipt')
-            // ->add('maintenance')
-            // ->add('manual')
             ->add('reservation_date', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
-                'data' => new \DateTime('now'),
-                // 'attr' => ['readonly' => true]
+                'data' => 'return_date',
                 ])
             // ->add('return_date', DateType::class, [
             //     'widget' => 'single_text',
