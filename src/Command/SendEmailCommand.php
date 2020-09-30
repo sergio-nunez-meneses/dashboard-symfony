@@ -60,9 +60,6 @@ class SendEmailCommand extends Command
 			$datereturn = $product->getReturnDate($now);
 
 			$datereturncomp = $datereturn->format('d,m,Y');
-
-
-			dump($datereturncomp);
 			
 			if ($datecomp >= $datereturncomp) {
 
@@ -71,8 +68,8 @@ class SendEmailCommand extends Command
 				->to($product->getIdUser()->getUsername())
 				->priority(Email::PRIORITY_HIGH) 
 				->subject('Date de retour de votre location.')
-				->text('Lorem ipsum...') 
-				->html('<h1>Lorem ipsum</h1> <p>...</p>');
+				->text('Retour location') 
+				->html("<h1>Retour de location</h1> <p>Il vous reste 15 jours pour rendre l'article loué.");
 
 				$this->mailer->send($email);
 
