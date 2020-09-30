@@ -3,25 +3,34 @@
 
 namespace App\Command;
 
-use App\Entity\Users;
-use App\Entity\Products;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Mime\Email;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SendEmailCommand extends Command
 {
 	protected static $defaultName = 'send:email';
 
 	private $mailer;
+
+	private $container;
+
+
 	
-	public function __construct(MailerInterface $mailer)
+	public function __construct(MailerInterface $mailer, ContainerInterface $container, EntityManagerInterface $em)
 	{
-		$this->mailer = $mailer;
         
 		parent::__construct();
+
+		$this->mailer = $mailer;
+		$this->container = $container;
+		$this->em = $em;
+
 	}
 
 	protected function configure()
@@ -38,17 +47,37 @@ class SendEmailCommand extends Command
 			'============'
 		]);
 
+		$now = new \DateTime();
+
+		$datecomp = $now->format('d,m,Y');
+
+		$em = $this->container->get('doctrine')->getRepository('App:Products');
+
+		$products = $em->findAll();
+
+		foreach ($products as $product) {
+
+			$datereturn = $product->getReturnDate($now);
+
+			$datereturncomp = $datereturn->format('d,m,Y');
+
+
+			dump($datereturncomp);
+			
+			if ($datecomp >= $datereturncomp) {
 
 			$email = (new Email())
 				->from('admin@acs.com') 
-				->to('o.quevillart@codeur.online') 
+				->to($product->getIdUser()->getUsername())
 				->priority(Email::PRIORITY_HIGH) 
-				->subject('I love Me')
+				->subject('Date de retour de votre location.')
 				->text('Lorem ipsum...') 
-				->html('<h1>Lorem ipsum</h1> <p>...</p>')
-			;
+				->html('<h1>Lorem ipsum</h1> <p>...</p>');
+
 				$this->mailer->send($email);
 
 				$output->writeln('Successful you send a self email');
+			}	
+		}		
 	}
 }
