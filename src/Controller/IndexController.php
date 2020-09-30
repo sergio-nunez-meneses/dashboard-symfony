@@ -23,6 +23,17 @@ class IndexController extends AbstractController
     }
 
     /**
+     * @Route("/", name="dashboard")
+     */
+    public function dashboard()
+    {
+        return $this->render('Dashboard/index.html.twig', [
+            'controller_name' => 'IndexController',
+            'current_page' => 'dashboard'
+        ]);
+    }
+
+    /**
      * @Route("/index", name="index")
      */
     public function index(): Response
@@ -33,9 +44,10 @@ class IndexController extends AbstractController
         $products = $this->repository->findAll();
 
         if ($role[0] === 'ROLE_ADMIN') {
-            return $this->render('admin/index.html.twig', [
+            return $this->render('admin/products.html.twig', [
                 'current_page' => 'admin',
                 'current_username' => $name,
+                'products' => $products
             ]);
         } elseif ($role[0] === 'ROLE_USER') {
             return $this->render('index/index.html.twig', [

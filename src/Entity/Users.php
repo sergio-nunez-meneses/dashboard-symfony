@@ -149,7 +149,7 @@ class Users implements UserInterface
     public function __toString()
     {
         // display user id at the end of the form
-        return $this->id;
+        return $this->username;
     }
 
     /**

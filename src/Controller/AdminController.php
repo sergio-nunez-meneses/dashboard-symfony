@@ -27,7 +27,7 @@ class AdminController extends AbstractController
     public function AllProducts(ProductsRepository $repo)
     {
       $products = $repo->findAll();
-      return $this->render('dashboard/products.html.twig', [
+      return $this->render('admin/products.html.twig', [
           'products' => $products
       ]);
     }
@@ -84,10 +84,10 @@ class AdminController extends AbstractController
 
         $manager->persist($product);
         $manager->flush();
-        return $this->redirectToRoute('product_detail', ['id' => $product->getId()]);
+        return $this->redirectToRoute('admin_product_detail', ['id' => $product->getId()]);
       }
 
-      return $this->render('dashboard/create.html.twig',[
+      return $this->render('admin/create.html.twig',[
         'formProduct' => $formProduct->createView(),
         'editMode' => $product->getId() !== null,
         'name' => $product->getName($product->getId())
@@ -109,7 +109,7 @@ class AdminController extends AbstractController
         // return new Response('Product deleted');
       }
 
-      return $this->redirectToRoute('products'); 
+      return $this->redirectToRoute('admin_products'); 
 
     }
 
@@ -121,8 +121,8 @@ class AdminController extends AbstractController
     {
       // $now = new DateTime();
       // $interval = $now->diff($product->getWarrantyDate());
-
-      return $this->render('dashboard/product.html.twig', [
+      dump($product);
+      return $this->render('admin/product.html.twig', [
           'product' => $product
           // 'interval' => $interval
       ]);

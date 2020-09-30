@@ -10,7 +10,7 @@
     <h1>Liste des produits</h1>
   </div>
   <div class="row p-5">
-    <div class="col-12"><a href="{{ path('admin_product_create')}}"><i class="fas fa-plus-square fa-1x">Create</i></a> </div>
+    <div class="col-12"><button class="btn btn-outline-primary mt-2"><a href="{{ path('admin_product_create')}}">NEW</i></a></button></div>
   </div>
   <table class="table" data-toggle="table" data-show-columns="true" data-search="true" data-pagination="true">
     <thead>
@@ -34,7 +34,7 @@
       {% for product in products %}
       <tr>
         {% if product.availability %}
-        <td class='text-center'><i class="fas fa-check-circle fa-2x" style="color:green"></i> Ajouter au panier</td>
+        <td class='text-center'><i class="fas fa-check-circle fa-2x" style="color:green"></i></td>
         {% else %}
         <td class='text-center'><i class="fas fa-times-circle fa-2x" style="color:red"></i></td>
         {% endif %}

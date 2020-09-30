@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface;
 
 class UserFormType extends AbstractType
 {
@@ -22,16 +23,15 @@ class UserFormType extends AbstractType
             ->add('username', TextType::class, [
                 'attr' => ['class' => 'form-control'],
             ])
+
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'admin' => 'ROLE_ADMIN',
                     'user' => 'ROLE_USER'
                 ],
                 'multiple' => true,
-                "label_attr" => ["class" => "checkbox-custom"],
-                'attr' => array ('class' => 'radio-inline')
-                ]
-                )
+            ]
+            )
 
             ->add('email', TextType::class, [
                 'attr' => ['class' => 'form-control'],

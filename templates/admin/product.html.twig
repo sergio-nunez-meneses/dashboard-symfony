@@ -7,6 +7,8 @@
 
 {% block body %}
 
+{{ dump(product)}}
+
 <div class="container">
   <div class="row p-5 justify-content-center">
     <h1>{{product.name}}</h1>
@@ -52,6 +54,7 @@
                     <div class="p-2" >Réservé du : {{product.reservationdate | date('d/m/Y')}}</div>
                     <div class="p-2">jusqu'au : {{product.returndate | date('d/m/Y')}}</div>
                     <div class="p-2">par : {{product.iduser}}</div>
+
                 </div>
                 <div class="col-6 text-center align-self-center">
                     {% set difference = date(product.reservationdate).diff(date()) %}
