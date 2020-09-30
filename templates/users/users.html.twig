@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}dashboard{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row p-5 justify-content-center">
+        <h1>Liste des utilisateurs</h1>
+    </div>
+    <div class="row p-5">
+        
+    </div>
+    <table class="table" data-toggle="table" data-show-columns="true" data-search="true" data-pagination="true">
+        <thead>
+            <tr class="text-center">
+                <th data-sortable="true" data-field="id" >id</th>
+                <th data-sortable="true" data-field="name" >Nom</th>
+                <th data-sortable="true" data-field="email" >email</th>
+                <th data-sortable="true" data-field="roles" >rôles</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                {% for role in user.roles %}
+                    {% if role == 'ROLE_ADMIN' %}
+                    Administrateur
+                    {% else %}
+                    Utilisateur
+                    {% endif %}
+                {% endfor %}
+                </td>
+                <td><a href="{{ path('admin_user_edit', {'id': user.id} )}}"><i class="fas fa-edit fa-1x"></i></a></td>
+                <td>
+                    <form action="{{ path('admin_user_delete', {'id': user.id} ) }}"
+                        onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur')">
+                        <input type="hidden" name="methods" value="DELETE">
+                        <input type="hidden" name="token" value="{{ csrf_token('delete' ~ user.id) }}">
+                        <button><i class="fas fa-trash fa-1x"></i></button>
+                    </form>
+                </td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

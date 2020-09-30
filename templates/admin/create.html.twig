@@ -28,7 +28,7 @@
   </div>
 </div>
 <div class="d-flex flex-column col-lg-12 col-sm-6">
-{{ form_row(formProduct.manual, {'attr':{'value':""}})}}
+{{ form_row(formProduct.manual, {'attr':{'class':"custom-file-input"}})}}
 {{ form_row(formProduct.receipt, {'attr':{'value':""}})}}
 {{ form_row(formProduct.purchase_place, {'attr':{'':""}})}}
 {{ form_row(formProduct.maintenance, {'attr':{'':""}})}}
@@ -41,7 +41,17 @@
   {% endif %}
 </button>
 {{ form_end(formProduct)}}
-<button class="btn btn-outline-danger"><a href="{{ path('products')}}"><i class="fas fa-info-circle fa-1x">liste des produits</i></a>
-</div></button>
+<button class="btn btn-outline-danger mt-2"><a href="{{ path('admin_products')}}">liste des produits</a>
+</button>
+
+
+<script>
+$(".custom-file-input").on("change", function() {
+var fileName = $(this).val().split("\\").pop();
+$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+
 
 {% endblock %}
+

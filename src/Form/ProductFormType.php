@@ -39,12 +39,12 @@ class ProductFormType extends AbstractType
             ->add('purchase_date', DateType::class, array(
                 "widget" => 'single_text',
                 "format" => 'yyyy-MM-dd',
-                "data" => new \DateTime()
+                
             ))
             ->add('warranty_date', DateType::class, array(
                 "widget" => 'single_text',
                 "format" => 'yyyy-MM-dd',
-                "data" => new \DateTime()
+                
             ))
             ->add('price')
             ->add('receipt', FileType::class, [
@@ -85,12 +85,14 @@ class ProductFormType extends AbstractType
             ->add('reservation_date', DateType::class, array(
                 "widget" => 'single_text',
                 "format" => 'yyyy-MM-dd',
-                "data" => new \DateTime()
+                
+                
             ))
             ->add('return_date', DateType::class, array(
                 "widget" => 'single_text',
                 "format" => 'yyyy-MM-dd',
-                "data" => new \DateTime()
+                
+                
             ))
             ->add('availability')
             ->add('purchase_place')

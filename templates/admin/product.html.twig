@@ -35,23 +35,31 @@
                   <div class="p-2">Produit garantis jusqu'au : {{product.warrantydate | date('d/m/Y')}}</div>
                 </div>
                 <div class="col-6 text-center align-self-center">
-                  {% set difference = date(product.warrantydate).diff(date()) %}
-                  {% set Days = difference.days %}
-                  Il reste {{ Days }} jours de garantie
+                  {% if product.warrantydate > date() %}
+                    {% set difference = date(product.warrantydate).diff(date()) %}
+                    {% set Days = difference.days %}
+                    Il reste {{ Days }} jours de garantie
+                  {% else %}
+                  Ce produit ne bénéficie plus d'une garanty fournisseur.
+                  {% endif %}
                 </div> 
               </div>
               <div class="row col-12">
                 <div class="col-6">
-                  {% if product.availability == false %}
-                  <div class="p-2" >Réservé du : {{product.reservationdate | date('d/m/Y')}}</div>
-                  <div class="p-2">jusqu'au : {{product.returndate | date('d/m/Y')}}</div>
-                  <div class="p-2">par : {{product.iduser}}</div>
+                  {% if product.reservationdate %}
+                    
+                    {% if product.availability == 0 %}
+                    <div class="p-2" >Réservé du : {{product.reservationdate | date('d/m/Y')}}</div>
+                    <div class="p-2">jusqu'au : {{product.returndate | date('d/m/Y')}}</div>
+                    <div class="p-2">par : {{product.iduser}}</div>
                 </div>
                 <div class="col-6 text-center align-self-center">
-                  {% set difference = date(product.warrantydate).diff(date()) %}
-                  {% set Days = difference.days %}
-                  Le produit sera disponible dans {{ Days }} jours.
+                    {% set difference = date(product.reservationdate).diff(date()) %}
+                    {% set Days = difference.days %}
+                    Le produit sera disponible dans {{ Days }} jours.
+                    {% endif %}
                   {% endif %}
+
                   </div>
                 </div>       
               </div>
@@ -71,7 +79,7 @@
           </div>
         </div> 
       </div>
-    <a href="{{ path('products')}}"><i class="fas fa-info-circle fa-1x">liste des produits</i></a>
+    <a href="{{ path('admin_products')}}"><i class="fas fa-info-circle fa-1x">liste des produits</i></a>
   </div>
 </div>
 {% endblock %}

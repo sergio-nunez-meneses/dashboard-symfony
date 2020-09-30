@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+<div class="container-fluid text-center">
+    <button id="showCells" class="btn btn-md bg-info mx-auto mt-3 text-white" type="button">Show More</button>
+    <table class="my-3 table table-sm table-bordered table-striped table-hover text-justify">
+        <thead class="thead-dark text-uppercase text-center">
+            <tr>
+                <th class="hiddenCell d-none" scope="col">Id</th>
+                <th class="" scope="col">Name</th>
+                <th class="" scope="col">Reference</th>
+                <th class="" scope="col">Category</th>
+                <th class="hiddenCell d-none" scope="col">Purchase Date</th>
+                <th class="hiddenCell d-none" scope="col">Warranty Date</th>
+                <th class="" scope="col">Price</th>
+                <th class="hiddenCell d-none" scope="col">Receipt</th>
+                <th class="hiddenCell d-none" scope="col">Maintenance</th>
+                <th class="hiddenCell d-none" scope="col">Manual</th>
+                <th class="hiddenCell d-none" scope="col">Reservation Date</th>
+                <th class="hiddenCell d-none" scope="col">Return Date</th>
+                <th class="" scope="col">Availability</th>
+                <th class="hiddenCell d-none" scope="col">Purchase Place</th>
+                <th class="" scope="col">Make Reservation</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            {% if product.availability == 1 %}
+            <tr style="background-color: rgba(3, 190, 3, 0.623);">
+                {% else %}
+                <tr style="background-color: grey;"></tr>
+                {% endif %}
+                <th class="hiddenCell d-none" scope="row">{{ product.id }}</th>
+                <td>{{ product.name }}</td>
+                <td class="">{{ product.reference }}</td>
+                <td class="">{{ product.category }}</td>
+                <td class="hiddenCell d-none"></td>>{{ product.purchaseDate|date('Y-m-d') }}</td>
+                <td class="hiddenCell d-none">{{ product.warrantyDate|date('Y-m-d') }}</td>
+                <td>{{ product.price }}</td>
+                <td class="hiddenCell d-none">
+                    <a class="btn btn-md bg-success text-decoration-none text-white" href="{{ product.receipt }}" download>Receipt</a>
+                </td>
+                <td class="hiddenCell d-none">{{ product.maintenance }}</td>
+                <td class="hiddenCell d-none">
+                    <a class="btn btn-md bg-success text-decoration-none text-white" href="{{ product.manual }}" download>Manual</a>
+                </td>
+                <td class="hiddenCell d-none">{{ product.reservationDate|date('Y-m-d') }}</td>
+                <td class="hiddenCell d-none">{{ product.returnDate|date('Y-m-d') }}</td>
+                <td>
+                    {% if product.availability == 1 %}
+                        {{ 'available' }}
+                    {% else %}
+                        {{ 'unavailable' }}
+                    {% endif %}
+                </td>
+                <td class="hiddenCell d-none">{{ product.purchasePlace }}</td>
+                <td>
+                    <a class="btn btn-md bg-info mx-auto my-1 w-100 text-white" href="{{ path('detail_product', {id: product.id}) }}">Details</a>
+                    {% if current_username != product.idUser %}
+                        <button class="disabled btn btn-md bg-danger mx-auto my-1 w-100 text-white">Product Unavailable</button>
+                    {% elseif current_username == product.idUser %}
+                        {% if product.availability == 1 %}
+                            <a class="btn btn-md bg-warning mx-auto my-1 w-100 text-white" href="{{ path('reserve_product', {id: product.id}) }}">Reserve</a>
+                        {% else %}
+                            <a class="btn btn-md bg-danger mx-auto my-1 w-100 text-white" href="{{ path('return_product', {id: product.id}) }}">Return</a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

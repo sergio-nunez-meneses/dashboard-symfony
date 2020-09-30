@@ -19,31 +19,31 @@ use App\Repository\ProductsRepository;
 
 class DashboardController extends AbstractController
 {
-    // /**
-    //  * @Route("/admin", name="admin_dashboard")
-    //  */
-    // public function admin()
-    // {
-    //     return $this->render('dashboard/products.html.twig', [
-    //         'controller_name' => 'DashboardController',
-    //     ]);
-    // }
+    /**
+     * @Route("/", name="dashboard")
+     */
+    public function index()
+    {
+        return $this->render('dashboard/index.html.twig', [
+            'controller_name' => 'DashboardController',
+        ]);
+    }
 
     /**
-     * @Route("/admin/products", name="admin_products")
+     * @Route("/products", name="products")
      */
 
     public function AllProducts(ProductsRepository $repo)
     {
       $products = $repo->findAll();
-      return $this->render('admin/products.html.twig', [
+      return $this->render('dashboard/products.html.twig', [
           'products' => $products
       ]);
     }
 
     /**
-     * @Route("/admin/products/new", name="admin_product_create")
-     * @Route("/admin/products/{id}/edit", name="admin_product_edit")
+     * @Route("/products/new", name="product_create")
+     * @Route("/products/{id}/edit", name= "product_edit")
      */
 
     public function form (Products $product = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger){
@@ -96,7 +96,7 @@ class DashboardController extends AbstractController
         return $this->redirectToRoute('product_detail', ['id' => $product->getId()]);
       }
 
-      return $this->render('admin/create.html.twig',[
+      return $this->render('dashboard/create.html.twig',[
         'formProduct' => $formProduct->createView(),
         'editMode' => $product->getId() !== null,
         'name' => $product->getName($product->getId())
@@ -104,7 +104,7 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route("/admin/products/{id}/delete", name="admin_product_delete", methods="DELETE|GET")
+     * @Route("/products/{id}/delete", name="product_delete", methods="DELETE|GET")
     */
     
     public function DeleteProduct(Products $product, Request $request, EntityManagerInterface $manager): Response
@@ -118,22 +118,22 @@ class DashboardController extends AbstractController
         // return new Response('Product deleted');
       }
 
-      return $this->redirectToRoute('admin_products');
+      return $this->redirectToRoute('products'); 
 
     }
 
     /**
-     * @Route("/admin/products/{id}", name="admin_product_detail")
-     * 
+     * @Route("/products/{id}", name="product_detail")
      */
 
     public function DetailProduct(Products $product)
     {
-      $username = $this->getUser()->getUsername();
+      // $now = new DateTime();
+      // $interval = $now->diff($product->getWarrantyDate());
 
-      return $this->render('admin/product.html.twig', [
+      return $this->render('dashboard/product.html.twig', [
           'product' => $product
-          
+          // 'interval' => $interval
       ]);
     }
 

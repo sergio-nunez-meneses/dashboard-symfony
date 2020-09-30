@@ -29,6 +29,10 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            // $data = $form->getData();
+            // $user->setName($data['roless']);
+            $role = $form->get('roles')->getData();
+            $user->setRoles($role);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -39,6 +43,7 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register.html.twig', [
+            'current_page' => 'register',
             'registrationForm' => $form->createView(),
         ]);
     }
