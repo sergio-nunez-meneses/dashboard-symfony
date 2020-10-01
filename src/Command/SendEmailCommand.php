@@ -22,10 +22,10 @@ class SendEmailCommand extends Command
 	private $container;
 
 
-	
+
 	public function __construct(MailerInterface $mailer, ContainerInterface $container, EntityManagerInterface $em)
 	{
-        
+
 		parent::__construct();
 
 		$this->mailer = $mailer;
@@ -40,7 +40,7 @@ class SendEmailCommand extends Command
 			->setDescription('Command for send self email')
 		;
 	}
-    
+
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		$output->writeln([
@@ -61,12 +61,12 @@ class SendEmailCommand extends Command
 			$datereturn = $product->getReturnDate($now);
 
 			$datereturncomp = $datereturn->format('d,m,Y');
-			
+
 			if ($datecomp >= $datereturncomp) {
 
 			$email = (new TemplatedEmail())
-				->from('admin@acs.com') 
-				->to($product->getIdUser()->getUsername())
+				->from('admin@acs.com')
+				->to($product->getIdUser()->getEmail())
 				->subject('Date de retour de votre location.')
 				->htmlTemplate('emails/return.html.twig')
 				->context([
@@ -78,7 +78,7 @@ class SendEmailCommand extends Command
 				$this->mailer->send($email);
 
 				$output->writeln('Successful you send a self email');
-			}	
-		}		
+			}
+		}
 	}
 }
