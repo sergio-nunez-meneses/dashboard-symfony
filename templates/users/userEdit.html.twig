@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+{{dump(formUser)}}
+<div class="container d-flex flex-column justify-content-center">
+    
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    
+    {{ form_start(formUser) }}
+    
+    <div class="row w-100 p-5 m-5 d-flex flex-row justify-content-center">
+        <div class="text-center col-lg-6 col-sm-12 shadow p-5">
+            <h1>Register</h1>
+            <div class="d-flex flex-column form-group justify-content-center p-5">
+                {{ form_row(formUser.username) }}
+                {{ form_row(formUser.email) }}
+                {{ form_row(formUser.roles) }}
+                {% for role in formUser.roles %}
+                
+                {{ form_row(role.vars.value) }}
+                
+                {% endfor %}
+
+
+
+                {{ form_end(formUser) }}
+                
+                
+                
+                
+               
+            
+            </div>
+        
+            <div class="form group">
+            <button type="submit" class="btn btn-outline-danger">Enregistrer les modifications</button>
+            <a href="{{ path('admin_users') }}"><button type="button" class="btn btn-outline-danger">Annuler</button></a>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+{% endblock %}
+
+
+
+    
+        
+

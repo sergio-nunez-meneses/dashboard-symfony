@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% form_theme formProduct 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+{% if editMode %}
+<h1>{{ name }}</h1>
+{% else %}
+<h1>Nouveau Produit</h1>
+{% endif %}
+
+<div class="container p-5"> 
+
+{{ form_start(formProduct) }}
+<div class="d-flex flex-row col-lg-12 col-sm-6">
+  <div class="d-flex flex-column col-lg-6 col-sm-3">
+  {{ form_row(formProduct.name, {'attr':{'placeholder':"Entrer le nom du produit"}})}}
+  {{ form_row(formProduct.reference, {'attr':{'placeholder':"Entrer la référence du produit"}})}}
+  {{ form_row(formProduct.category, {'attr':{'placeholder':"sélectionner la catégorie du produit"}})}}
+  {{ form_row(formProduct.price, {'attr':{'placeholder':"Entrer le prix"}})}}
+  {{ form_row(formProduct.availability, {'attr':{'value':""}})}}
+  </div>
+  <div class="d-flex flex-column col-lg-6 col-sm-3">
+  {{ form_row(formProduct.purchase_date, {'attr':{'':""}})}}
+  {{ form_row(formProduct.warranty_date, {'attr':{'placeholder':""}})}}
+  {{ form_row(formProduct.reservation_date,)}}
+  {{ form_row(formProduct.return_date, {'attr':{'':""}})}}
+  </div>
+</div>
+<div class="d-flex flex-column col-lg-12 col-sm-6">
+{{ form_row(formProduct.manual, {'attr':{'class':"custom-file-input"}})}}
+{{ form_row(formProduct.receipt, {'attr':{'value':""}})}}
+{{ form_row(formProduct.purchase_place, {'attr':{'':""}})}}
+{{ form_row(formProduct.maintenance, {'attr':{'':""}})}}
+</div>
+<button type="submit" class="btn btn-outline-danger">
+  {% if editMode %}
+  Enregistrer les modifications
+  {% else %}
+  Ajouter le produit
+  {% endif %}
+</button>
+{{ form_end(formProduct)}}
+<button class="btn btn-outline-danger mt-2"><a href="{{ path('admin_products')}}">liste des produits</a>
+</button>
+
+{% endblock %}
+

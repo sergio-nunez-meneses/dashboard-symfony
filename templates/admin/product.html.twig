@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}dashboard{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="">
+{% endblock %}
+
+{% block body %}
+
+{{ dump(product)}}
+
+<div class="container">
+  <div class="row p-5 justify-content-center">
+    <h1>{{product.name}}</h1>
+  </div>
+
+  <div class="container-fluid content m-0 p-0">
+    <h2 class="colomn justify-content-between">Rappel des caractéristiques du produit : </h2>
+      <div class="row shadow-lg p-4 mb-4 bg-white">  
+        <div class="row col-12">
+          <div class="col-6 p-2 border">
+            {% if product.availability == true %}
+            <div class="p-2">Status : Produit disponible</div>
+            {% else %}
+            <div class="p-2">Status : Produit indisponible</div>
+            {% endif %}
+            <div class="p-2">Reference du produit : {{product.Reference}}</div>
+            <div class="p-2">Catégorie du produit : {{product.Category}}</div>
+            <div class="p-2">Prix: {{product.price}} €</div>
+            <div class="p-2">Acheté : {{product.purchaseplace}}</div>
+          </div>
+          <div class="col-6 p-2 border">
+            <div class="row">
+              <div class="row col-12">
+                <div class="col-6">
+                  <div class="p-2">Achat le : {{product.purchasedate | date('d/m/Y')}}</div>
+                  <div class="p-2">Produit garantis jusqu'au : {{product.warrantydate | date('d/m/Y')}}</div>
+                </div>
+                <div class="col-6 text-center align-self-center">
+                  {% if product.warrantydate > date() %}
+                    {% set difference = date(product.warrantydate).diff(date()) %}
+                    {% set Days = difference.days %}
+                    Il reste {{ Days }} jours de garantie
+                  {% else %}
+                  Ce produit ne bénéficie plus d'une garanty fournisseur.
+                  {% endif %}
+                </div> 
+              </div>
+              <div class="row col-12">
+                <div class="col-6">
+                  {% if product.reservationdate %}
+                    
+                    {% if product.availability == 0 %}
+                    <div class="p-2" >Réservé du : {{product.reservationdate | date('d/m/Y')}}</div>
+                    <div class="p-2">jusqu'au : {{product.returndate | date('d/m/Y')}}</div>
+                    <div class="p-2">par : {{product.iduser}}</div>
+
+                </div>
+                <div class="col-6 text-center align-self-center">
+                    {% set difference = date(product.reservationdate).diff(date()) %}
+                    {% set Days = difference.days %}
+                    Le produit sera disponible dans {{ Days }} jours.
+                    {% endif %}
+                  {% endif %}
+
+                  </div>
+                </div>       
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row shadow-lg p-4 mb-4 bg-white">
+        <div class="col-lg-8 col-sm-12 p-5 shadow-lg">
+          <h3>conseils d'entretien</h3>
+          {{product.maintenance}}
+        </div>
+        <div class="col-lg-4 col-sm-12 p-5">
+          <div class="d-flex flex-column justify-content-around">
+            <div class="d-flex flex-row my-1"><a href="{{ asset('uploads/manual/' ~ product.manual) }}" download="manuel_utilisation" type="button" class="btn btn-outline-danger">Manuel d'utilisation<i class="fas fa-upload fa-x3 ml-2"></i></a></div>
+            <div class="d-flex flex-row my-1"><a href="{{ asset('uploads/receipt/' ~ product.receipt) }}" download="facture" type="button" class="btn btn-outline-danger">Facture<i class="fas fa-upload fa-x3 ml-2"></i></a></div>
+          </div>
+        </div> 
+      </div>
+    <a href="{{ path('admin_products')}}"><i class="fas fa-info-circle fa-1x">liste des produits</i></a>
+  </div>
+</div>
+{% endblock %}
+
+

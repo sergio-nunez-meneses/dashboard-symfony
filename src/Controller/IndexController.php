@@ -68,7 +68,6 @@ class IndexController extends AbstractController
      */
     public function detail(Products $product): Response
     {
-
         $username = $this->getUser()->getUsername();
 
         return $this->render('index/productFront.html.twig', [
