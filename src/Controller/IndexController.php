@@ -48,7 +48,7 @@ class IndexController extends AbstractController
 
         if ($role === 'ROLE_ADMIN')
         {
-            return $this->render('admin/index.html.twig', [
+            return $this->render('admin/products.html.twig', [
                 'current_page' => 'admin',
                 'current_username' => $name,
                 'products' => $products

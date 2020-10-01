@@ -23,7 +23,7 @@ class ProductReservationType extends AbstractType
             ->add('reservation_date', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
-                'data' => 'return_date',
+                'data' => new \DateTime('now'),
                 ])
             // ->add('return_date', DateType::class, [
             //     'widget' => 'single_text',

@@ -7,8 +7,6 @@
 
 {% block body %}
 
-{{ dump(product)}}
-
 <div class="container">
   <div class="row p-5 justify-content-center">
     <h1>{{product.name}}</h1>
@@ -16,7 +14,7 @@
 
   <div class="container-fluid content m-0 p-0">
     <h2 class="colomn justify-content-between">Rappel des caractéristiques du produit : </h2>
-      <div class="row shadow-lg p-4 mb-4 bg-white">  
+      <div class="row shadow-lg p-4 mb-4 bg-white">
         <div class="row col-12">
           <div class="col-6 p-2 border">
             {% if product.availability == true %}
@@ -44,12 +42,12 @@
                   {% else %}
                   Ce produit ne bénéficie plus d'une garanty fournisseur.
                   {% endif %}
-                </div> 
+                </div>
               </div>
               <div class="row col-12">
                 <div class="col-6">
                   {% if product.reservationdate %}
-                    
+
                     {% if product.availability == 0 %}
                     <div class="p-2" >Réservé du : {{product.reservationdate | date('d/m/Y')}}</div>
                     <div class="p-2">jusqu'au : {{product.returndate | date('d/m/Y')}}</div>
@@ -64,7 +62,7 @@
                   {% endif %}
 
                   </div>
-                </div>       
+                </div>
               </div>
             </div>
           </div>
@@ -80,11 +78,8 @@
             <div class="d-flex flex-row my-1"><a href="{{ asset('uploads/manual/' ~ product.manual) }}" download="manuel_utilisation" type="button" class="btn btn-outline-danger">Manuel d'utilisation<i class="fas fa-upload fa-x3 ml-2"></i></a></div>
             <div class="d-flex flex-row my-1"><a href="{{ asset('uploads/receipt/' ~ product.receipt) }}" download="facture" type="button" class="btn btn-outline-danger">Facture<i class="fas fa-upload fa-x3 ml-2"></i></a></div>
           </div>
-        </div> 
+        </div>
       </div>
-    <a href="{{ path('admin_products')}}"><i class="fas fa-info-circle fa-1x">liste des produits</i></a>
   </div>
 </div>
 {% endblock %}
-
-

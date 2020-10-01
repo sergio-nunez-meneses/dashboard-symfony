@@ -21,22 +21,22 @@
                 <th class="hiddenCell d-none" scope="col">Reservation Date</th>
                 <th class="hiddenCell d-none" scope="col">Return Date</th>
                 <th class="" scope="col">Availability</th>
-                <th class="hiddenCell d-none" scope="col">Purchase Place</th>
+                {# <th class="hiddenCell d-none" scope="col">Purchase Place</th> #}
                 <th class="" scope="col">Make Reservation</th>
             </tr>
         </thead>
         <tbody>
         {% for product in products %}
             {% if product.availability == 1 %}
-            <tr style="background-color: rgba(3, 190, 3, 0.623);">
-                {% else %}
-                <tr style="background-color: grey;"></tr>
-                {% endif %}
+              <tr style="background-color: rgba(3, 190, 3, 0.623);">
+            {% else %}
+              <tr style="background-color: grey;">
+            {% endif %}
                 <th class="hiddenCell d-none" scope="row">{{ product.id }}</th>
                 <td>{{ product.name }}</td>
                 <td class="">{{ product.reference }}</td>
                 <td class="">{{ product.category }}</td>
-                <td class="hiddenCell d-none"></td>>{{ product.purchaseDate|date('Y-m-d') }}</td>
+                <td class="hiddenCell d-none">{{ product.purchaseDate|date('Y-m-d') }}</td>
                 <td class="hiddenCell d-none">{{ product.warrantyDate|date('Y-m-d') }}</td>
                 <td>{{ product.price }}</td>
                 <td class="hiddenCell d-none">
@@ -55,7 +55,7 @@
                         {{ 'unavailable' }}
                     {% endif %}
                 </td>
-                <td>{{ product.purchasePlace }}</td>
+                {# <td>{{ product.purchasePlace }}</td> #}
                 <td>
                     <a class="btn btn-md bg-info mx-auto my-1 w-100 text-white" href="{{ path('index') }}">Details</a>
                     {% if current_username != product.idUser %}

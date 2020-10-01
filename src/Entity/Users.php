@@ -46,8 +46,8 @@ class Users implements UserInterface
     private $password;
 
     /**
-     * @var string 
-     * 
+     * @var string
+     *
     */
     public $confirm_password;
         // @Assert\EqualTo(propertyPath="password", message="ca marche pas c'est de la merde")
@@ -59,11 +59,11 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * 
+     *
      */
     private $email;
 
-    
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -142,15 +142,6 @@ class Users implements UserInterface
         // $this->plainPassword = null;
     }
 
-    
-    /**
-     * To avoid the error "Catchable Fatal Error: Object of class App\Entity\Users could not be converted to string"
-     */
-    public function __toString()
-    {
-        // display user id at the end of the form
-        return $this->username;
-    }
 
     /**
      * To avoid the error "Catchable Fatal Error: Object of class App\Entity\Users could not be converted to string"
@@ -159,7 +150,6 @@ class Users implements UserInterface
     {
         // display user id at the end of the form
         return $this->username;
-        // return $this->id;
     }
 
     /**
@@ -205,5 +195,5 @@ class Users implements UserInterface
         return $this;
     }
 
-    
+
 }

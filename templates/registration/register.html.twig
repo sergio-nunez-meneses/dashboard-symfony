@@ -4,7 +4,7 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-<div class="container d-flex flex-column justify-content-center">
+<div class="container d-flex flex-column justify-content-center my-5">
 
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>

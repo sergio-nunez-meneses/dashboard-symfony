@@ -19,7 +19,7 @@ use App\Repository\ProductsRepository;
 
 class AdminController extends AbstractController
 {
-    
+
     /**
      * @Route("/admin/products", name="admin_products")
      */
@@ -37,7 +37,7 @@ class AdminController extends AbstractController
      * @Route("admin/products/{id}/edit", name= "admin_product_edit")
      */
 
-    public function form (Products $product = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger){
+    public function form(Products $product = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger){
       if(!$product){
         $product = new Products;
       }
@@ -97,19 +97,19 @@ class AdminController extends AbstractController
     /**
      * @Route("admin/products/{id}/delete", name="admin_product_delete", methods="DELETE|GET")
     */
-    
+
     public function DeleteProduct(Products $product, Request $request, EntityManagerInterface $manager): Response
     {
-      
+
       if (true || $this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token')))
       {
-        
+
         $manager->remove($product);
         $manager->flush();
         // return new Response('Product deleted');
       }
 
-      return $this->redirectToRoute('admin_products'); 
+      return $this->redirectToRoute('admin_products');
 
     }
 

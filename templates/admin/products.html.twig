@@ -23,12 +23,13 @@
         <th data-sortable="true" data-field="ref" class="col-2">Référence</th>
         {# <th data-sortable="true" data-field="buydate" class="col-2">Date achat</th> #}
         {# <th data-sortable="true" data-field="waranty" class="col-2">Date garantie</th> #}
-        <th data-sortable="true" data-field="resrevation" class="col-2">Date réservation</th>
+        <th data-sortable="true" data-field="reservation" class="col-2">Date réservation</th>
         <th data-sortable="true" data-field="retour" class="col-2">Date retour</th>
         <th data-sortable="true" data-field="price" class="col-2">Prix</th>
         {# <th data-sortable="true" data-field="vendor" class="col-2">Vendeur</th> #}
         <th></th>
         <th></th>
+      </tr>
     </thead>
     <tbody>
       {% for product in products %}
@@ -62,6 +63,6 @@
       </tr>
       {% endfor %}
     </tbody>
+  </table>
 </div>
-</table>
 {% endblock %}
