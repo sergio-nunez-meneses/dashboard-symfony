@@ -3,14 +3,43 @@
 {% block title %}Hello GraphController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    
-    <img src="{{ path('graph') }}" />
-    
+<div class="container my-5 p-5 border border-dark">
+  <canvas id="canvas"></canvas>
 </div>
+
+<script>
+  const CANVAS = document.getElementById('canvas').getContext('2d'),
+    COUNT = {{ categories|length }}
+  CANVAS.width = window.innerWidth;
+  CANVAS.height = window.innerHeight;
+
+  let colors = [];
+
+  function randomRGBA() {
+    let color = 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.random() + ')';
+
+    if (!(color < 'rgba(0, 0, 0, 1)' && color > 'rgba(0, 0, 0, 0)')) {
+      return color;
+    }
+  }
+
+  for (let i = 0; i < COUNT; i++) {
+    colors.push(randomRGBA());
+  }
+
+  let chart = new Chart(CANVAS, {
+    type: 'pie',
+
+    data: {
+      labels: [ {{ categories|join(', ')|raw }} ],
+      datasets: [{
+        backgroundColor: colors,
+        borderColor: colors,
+        data: [ {{ total|join(', ')|raw }} ]
+      }]
+    },
+
+    options: {}
+  });
+</script>
 {% endblock %}

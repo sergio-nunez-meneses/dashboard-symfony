@@ -11,6 +11,16 @@
 
       <div id="navbarNav" class="collapse navbar-collapse">
         {% if not app.user %}
+          {# GRAPH #}
+          {% if current_page != 'graph' %}
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-items">
+              <a class="nav-link btn btn-lg bg-dark text-white" href="{{ path('admin/graph') }}">
+                Sign Up
+              </a>
+            </li>
+          </ul>
+          {% endif %}
           {# SIGN UP FORM #}
           {% if current_page != 'register' %}
           <ul class="navbar-nav ml-auto">
