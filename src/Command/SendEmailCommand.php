@@ -3,7 +3,8 @@
 
 namespace App\Command;
 
-use Doctrine\ORM\EntityManager;
+use DateTime;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -63,13 +64,16 @@ class SendEmailCommand extends Command
 			
 			if ($datecomp >= $datereturncomp) {
 
-			$email = (new Email())
+			$email = (new TemplatedEmail())
 				->from('admin@acs.com') 
 				->to($product->getIdUser()->getUsername())
-				->priority(Email::PRIORITY_HIGH) 
 				->subject('Date de retour de votre location.')
-				->text('Retour location') 
-				->html("<h1>Retour de location</h1> <p>Il vous reste 15 jours pour rendre l'article loué.");
+				->htmlTemplate('emails/return.html.twig')
+				->context([
+					'product' => $product,
+					'username' => $product->getIdUser()->getUsername(),
+					'expiration_date' => new DateTime('+15 days')
+				]);
 
 				$this->mailer->send($email);
 
