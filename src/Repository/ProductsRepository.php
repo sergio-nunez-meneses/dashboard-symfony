@@ -47,4 +47,20 @@ class ProductsRepository extends ServiceEntityRepository
         ;
     }
     */
+    // "SELECT categorie_produit , COUNT(nom_produit) FROM produit GROUP BY categorie_produit";
+    
+    /**
+     * @return Products[] Returns an array of Products objects
+     */
+
+    public function findQuantityByCategory()
+    {
+        return $this->createQueryBuilder('p')
+            ->COUNT('p.name')
+            ->groupBy('p.category')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 }

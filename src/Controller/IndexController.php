@@ -6,6 +6,7 @@ use App\Entity\Users;
 use App\Entity\Products;
 use App\Form\ProductReturnType;
 use App\Form\ProductReservationType;
+use App\Repository\UsersRepository;
 use App\Repository\ProductsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,11 +15,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {
-    private $repository;
+    private $users_repository;
+    private $products_repository;
 
-    public function __construct(ProductsRepository $repository)
+    public function __construct(UsersRepository $users_repository, ProductsRepository $products_repository)
     {
-        $this->repository = $repository;
+        // short for $this->getDoctrine()->getRepository(Entity::class);
+        $this->users_repository = $users_repository;
+        $this->products_repository = $products_repository;
 
     }
 
@@ -28,7 +32,6 @@ class IndexController extends AbstractController
     public function dashboard()
     {
         return $this->render('Dashboard/index.html.twig', [
-            'controller_name' => 'IndexController',
             'current_page' => 'dashboard'
         ]);
     }
@@ -40,8 +43,8 @@ class IndexController extends AbstractController
     {
         $user = $this->getUser();
         $name = $user->getUsername();
-        $role = $this->getDoctrine()->getRepository(Users::class)->findOneBy(['username' => $name])->getRoles();
-        $products = $this->repository->findAll();
+        $role = $this->users_repository->findOneBy(['username' => $name])->getRoles();
+        $products = $this->products_repository->findAll();
 
         if ($role[0] === 'ROLE_ADMIN') {
             return $this->render('admin/products.html.twig', [
@@ -83,18 +86,22 @@ class IndexController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            // $product = new Products(); // for creating a new product
-            $data = $form->getData(); // get all data from form inputs
-            $product = $this->repository->find($id);
+            $product = $this->products_repository->find($id);
             $user = $this->getUser();
             $product->setIdUser($user);
-            // $product->setName($data['name']);
-            // $return_date = new \DateTime($data['reservationDate'] ' + 4 weeks');
-            // $product->setReturnDate($return_date);
 
+            $reservation_date = $form->getData()->getReservationDate();
+            $product->setReservationDate($reservation_date);
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
+
+            $return_date = $reservation_date;
+            $return_date = $return_date->add(new \DateInterval('P30D'));
+            $product->setReturnDate($return_date);
+            $em->persist($product);
+            $em->flush();
+
             return $this->redirectToRoute('index');
         }
 
@@ -114,10 +121,9 @@ class IndexController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $product = $this->getDoctrine()->getRepository(Products::class)->find($id);
+            $product = $this->products_repository->find($id);
             $user = $this->getUser();
             $product->setIdUser($user);
-            // $reserve = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
