@@ -27,6 +27,16 @@ class IndexController extends AbstractController
     }
 
     /**
+     * @Route("/", name="dashboard")
+     */
+    public function dashboard()
+    {
+        return $this->render('Dashboard/index.html.twig', [
+            'current_page' => 'dashboard'
+        ]);
+    }
+
+    /**
      * @Route("/index", name="index")
      */
     public function index(): Response
@@ -51,6 +61,21 @@ class IndexController extends AbstractController
                 'products' => $products
             ]);
         }
+    }
+
+    /**
+     * @Route("/productFront/{id}", name="detail_product")
+     */
+    public function detail(Products $product): Response
+    {
+
+        $username = $this->getUser()->getUsername();
+
+        return $this->render('index/productFront.html.twig', [
+            'current_page' => 'product',
+            'product' => $product
+
+      ]);
     }
 
     /**
