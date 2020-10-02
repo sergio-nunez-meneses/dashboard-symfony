@@ -52,15 +52,14 @@
                     {% if product.availability == 1 %}
                         {{ 'available' }}
                     {% else %}
-                        {{ 'unavailable' }}
+                        <button class="disabled btn btn-md bg-danger mx-auto my-1 w-100 text-white">Product Unavailable</button>
                     {% endif %}
                 </td>
                 {# <td>{{ product.purchasePlace }}</td> #}
                 <td>
-                    <a class="btn btn-md bg-info mx-auto my-1 w-100 text-white" href="{{ path('index') }}">Details</a>
+                    <a class="btn btn-md bg-info mx-auto my-1 w-100 text-white" href="{{ path('detail_product', {id: product.id}) }}">Details</a>
                     {% if current_username != product.idUser %}
                         {% if product.availability == 0 %}
-                            <button class="disabled btn btn-md bg-danger mx-auto my-1 w-100 text-white">Product Unavailable</button>
                             <a class="btn btn-md bg-warning mx-auto my-1 w-100 text-white" href="{{ path('reserve_product', {id: product.id}) }}">Reserve</a>
                         {% else %}
                             <a class="btn btn-md bg-warning mx-auto my-1 w-100 text-white" href="{{ path('reserve_product', {id: product.id}) }}">Rent</a>

@@ -7,6 +7,7 @@ use App\Entity\Users;
 use App\Entity\Products;
 use App\Form\ProductReturnType;
 use App\Form\ProductReservationType;
+use App\Form\ProductReservation1Type;
 use App\Repository\UsersRepository;
 use App\Repository\ProductsRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,7 +84,12 @@ class IndexController extends AbstractController
     public function productReservation(Products $products, Request $request, $id)
     {
         $form = $this->createForm(ProductReservationType::class, $products);
+        $form1 = $this->createForm(ProductReservation1Type::class, $products);
         $form->handleRequest($request);
+        $form1->handleRequest($request);
+
+        $return_date = $this->products_repository->find($id)->getReturnDate();
+        $availability = $this->products_repository->find($id)->getAvailability();
 
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -106,10 +112,28 @@ class IndexController extends AbstractController
             return $this->redirectToRoute('index');
         }
 
-        return $this->render('reservation/index.html.twig', [
+
+        if ($availability == 1) {
+            return $this->render('reservation/index.html.twig', [
             'current_page' => 'reservation',
             'form' => $form->createView()
-        ]);
+            ]);
+        } else {
+            return $this->render('reservation/index1.html.twig', [
+            'current_page' => 'reservation',
+            'availability' => $availability,
+            'return_date' => $return_date,
+            'form' => $form1->createView()
+            ]);
+        }
+        
+        // return $this->render('reservation/index.html.twig', [
+        //     'current_page' => 'reservation',
+        //     'availability' => $availability,
+        //     'return_date' => $return_date,
+        //     'form' => $form->createView()
+        //     ]);
+
     }
 
     /**

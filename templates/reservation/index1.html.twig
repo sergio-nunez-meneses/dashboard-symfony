@@ -11,11 +11,12 @@
     {{ form_start(form) }}
         {{ form_widget(form.name) }}
         
-        {{ form_label(form.reservation_date) }}
-        {{ form_widget(form.reservation_date) }}
+            {{ form_label(form.return_date) }}
+            {{ form_widget(form.return_date) }}
+         
         
         <div class="form-group">
-            <button class="btn btn-lg bg-dark text-white mt-2 type="submit">Reserve</button>
+            <button class="btn btn-lg bg-dark text-white mt-3" type="submit">Reserve</button>
         </div>
     {{ form_end(form) }}
 </div>

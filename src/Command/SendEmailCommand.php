@@ -68,6 +68,7 @@ class SendEmailCommand extends Command
 
 					$this->mailer->send($email);
 					$output->writeln('Successful you send a self email');
+					return 1;
 			}
 		}
 	}

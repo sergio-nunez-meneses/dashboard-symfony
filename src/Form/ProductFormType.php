@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -81,20 +82,14 @@ class ProductFormType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
                 ],
+            ]) 
+            ->add('availability', ChoiceType::class, [
+                'choices' => [
+                    'Available' => true,
+                    'Unavailable' => false
+                ],
+                'attr' => ['readonly' => true]
             ])
-            ->add('reservation_date', DateType::class, array(
-                "widget" => 'single_text',
-                "format" => 'yyyy-MM-dd',
-                
-                
-            ))
-            ->add('return_date', DateType::class, array(
-                "widget" => 'single_text',
-                "format" => 'yyyy-MM-dd',
-                
-                
-            ))
-            ->add('availability')
             ->add('purchase_place')
             //->add('id_user')
         ;

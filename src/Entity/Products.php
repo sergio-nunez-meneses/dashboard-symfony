@@ -63,12 +63,12 @@ class Products
     private $manual;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $reservation_date;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $return_date;
 
@@ -205,7 +205,7 @@ class Products
         return $this->reservation_date;
     }
 
-    public function setReservationDate(\DateTimeInterface $reservation_date): self
+    public function setReservationDate(\DateTimeInterface $reservation_date = NULL): self
     {
         $this->reservation_date = $reservation_date;
 
@@ -217,7 +217,7 @@ class Products
         return $this->return_date;
     }
 
-    public function setReturnDate(\DateTimeInterface $return_date): self
+    public function setReturnDate(\DateTimeInterface $return_date = NULL): self
     {
         $this->return_date = $return_date;
 
